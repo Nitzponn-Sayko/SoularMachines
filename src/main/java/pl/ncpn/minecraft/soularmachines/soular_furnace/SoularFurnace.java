@@ -1,9 +1,6 @@
 package pl.ncpn.minecraft.soularmachines.soular_furnace;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,6 +17,12 @@ import pl.ncpn.minecraft.soularmachines.SoularMachinesMod;
 public class SoularFurnace extends BlockWithEntity {
     public SoularFurnace(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        // With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
     }
 
     @Override
