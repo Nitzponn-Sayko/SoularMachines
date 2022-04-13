@@ -3,8 +3,10 @@ package pl.ncpn.minecraft.soularmachines;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -12,6 +14,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.ncpn.minecraft.soularmachines.soular_furnace.SoularFurnace;
+import pl.ncpn.minecraft.soularmachines.soular_furnace.SoularFurnaceEntity;
 
 public class SoularMachinesMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -25,7 +29,8 @@ public class SoularMachinesMod implements ModInitializer {
 	public static final Item MUSICAL_SOULAR_SOUL = new MusicalSoularSoul(new FabricItemSettings().group(ItemGroup.MISC));
 
 //	public static final Item SOULAR_FURNACE_ITEM = new Item(new FabricItemSettings().group(ItemGroup.MISC));
-	public static final Block SOULAR_FURNACE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.0f));
+	public static final Block SOULAR_FURNACE_BLOCK = new SoularFurnace(FabricBlockSettings.of(Material.METAL).strength(2.0f));
+	public static BlockEntityType<SoularFurnaceEntity> SOULAR_FURNACE_ENTITY;
 
 
 	@Override
@@ -44,6 +49,8 @@ public class SoularMachinesMod implements ModInitializer {
 				new BlockItem(SOULAR_FURNACE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC))
 		);
 
-
+		SOULAR_FURNACE_ENTITY =  Registry.register(Registry.BLOCK_ENTITY_TYPE, "soularmachines:soular_furnace_entity",
+				FabricBlockEntityTypeBuilder.create(SoularFurnaceEntity::new,
+						SOULAR_FURNACE_BLOCK).build(null));
 	}
 }
