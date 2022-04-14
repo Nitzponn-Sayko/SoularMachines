@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "pl.ncpn.minecraft.soularmachines.SoularMachinesMod"
+    ],
+    "client": [
+      "pl.ncpn.minecraft.soularmachines.SoularMachinesClientMod"
     ]
   },
   "mixins": [

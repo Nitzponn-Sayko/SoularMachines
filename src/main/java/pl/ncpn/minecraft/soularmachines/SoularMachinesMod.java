@@ -4,18 +4,21 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.ncpn.minecraft.soularmachines.soular_furnace.SoularFurnace;
 import pl.ncpn.minecraft.soularmachines.soular_furnace.SoularFurnaceEntity;
+import pl.ncpn.minecraft.soularmachines.soular_furnace.SoularScreenHandler;
 
 public class SoularMachinesMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -24,6 +27,7 @@ public class SoularMachinesMod implements ModInitializer {
 	public static final String MODID = "soularmachines";
 	public static final Logger LOGGER = LoggerFactory.getLogger(SoularMachinesMod.MODID);
 
+	public static final Identifier FURNACE_ID = new Identifier(MODID, "soular_furnace_inv");
 
 	public static final Item SOULAR_SOUL = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final Item MUSICAL_SOULAR_SOUL = new MusicalSoularSoul(new FabricItemSettings().group(ItemGroup.MISC));
@@ -31,6 +35,7 @@ public class SoularMachinesMod implements ModInitializer {
 //	public static final Item SOULAR_FURNACE_ITEM = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final Block SOULAR_FURNACE_BLOCK = new SoularFurnace(FabricBlockSettings.of(Material.METAL).strength(2.0f));
 	public static BlockEntityType<SoularFurnaceEntity> SOULAR_FURNACE_ENTITY;
+	public static ScreenHandlerType<SoularScreenHandler> SOULAR_SCREEN_HANDLER;
 
 
 	@Override
@@ -52,5 +57,8 @@ public class SoularMachinesMod implements ModInitializer {
 		SOULAR_FURNACE_ENTITY =  Registry.register(Registry.BLOCK_ENTITY_TYPE, "soularmachines:soular_furnace_entity",
 				FabricBlockEntityTypeBuilder.create(SoularFurnaceEntity::new,
 						SOULAR_FURNACE_BLOCK).build(null));
+
+		SOULAR_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(FURNACE_ID, SoularScreenHandler::new);
+
 	}
 }
